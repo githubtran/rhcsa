@@ -203,12 +203,12 @@ There are multiple methods to do that
 	Terminate the boot process at an early stage to access a debug shell to reset the root password
 ```
  == after you reboot the machine | press e to the specific kernel 
- and add rd.break before rgb quiet 
- # mount -o remount,rw /sysroot 
- # passwd		==> changing the pass 
+ add to the end of the linux line init=/bin/bash
+ ctrl+x to continue
+ # mount -o remount,rw / 
+ # passwd root		==> changing the pass 
  # touch /.autorelable
- # exit 
- # exit
+ # exec /usr/lib/systemd/systemd
 
   If you follow this approach and you have a large data then the process of relabling by SELinux takes more time 
   So to save some time you can add the option : 
