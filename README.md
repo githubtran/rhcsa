@@ -501,9 +501,7 @@ In server1:
 # mkdir /common 
 # dnf -y install nfs-utils  
 # systemctl enable --now nfs-server.service 
-# firewall-cmd --add-service=nfs --permanent
-# firewall-cmd --add-service=rpc-bind --permanent 
-# firewall-cmd --add-service=mountd --permanent 
+# for i in nfs mountd rpc-bind; do firewall-cmd --add-service $i --permanent; done
 # firewall-cmd --reload 
 # echo "/common  *(rw)" >> /etc/exports
 # exportfs -av		=> to confirm the export 
@@ -516,7 +514,7 @@ In server2:
 # mkdir /local
 # showmount -e server1			=> or you can use the ip @ of the server	
 # mount server1:/ /local 
-# echo "server1:/common  /local  nfs _netdev 0 0" >> /etc/fstab 
+# echo "server1:/common  /local  nfs defaults 0 0" >> /etc/fstab 
 # mount -a 
 # echo "This message from server2 " >> /local/file 
 In server1: 
